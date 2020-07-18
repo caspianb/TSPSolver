@@ -1,5 +1,5 @@
 # TSPSolver
-A simple TSP Solver w/ GUI using some various heuristics including:
+A simple TSP Solver w/ GUI using various heuristics including:
 
 * Basic ant-colony simulation
 ** Pheremones logic could be significantly improved to properly simulate ants/agents
