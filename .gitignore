@@ -1,0 +1,21 @@
+# Ignore build output files
+bin/
+build/
+out/
+reports/
+
+# Ignore IntelliJ/Eclipse project specific files
+*.iml
+*.ipr
+*.iws
+.idea/*
+!/.idea/copyright/
+!/.idea/scopes/
+.settings/
+.project
+.classpath
+
+# Additional gradle ignores
+.DS_Store
+.gradle/
+.scannerwork/

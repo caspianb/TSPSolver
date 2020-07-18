@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'tsp.app.TSPSolver'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
