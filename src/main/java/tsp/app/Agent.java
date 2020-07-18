@@ -1,14 +1,14 @@
 package tsp.app;
 
+import tsp.graph.Edge;
+import tsp.graph.Graph;
+import tsp.graph.Node;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import tsp.graph.Edge;
-import tsp.graph.Graph;
-import tsp.graph.Node;
 
 public class Agent {
 

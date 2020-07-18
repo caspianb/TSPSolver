@@ -275,6 +275,7 @@ class MainEventLoop extends JPanel implements ActionListener {
                 }
 
                 // Reset changes made above before next iteration
+                // this avoids needing to repeatedly copy the entire list
                 Collections.reverse(currTwoOptMove.subList(firstNode, secondNode));
             }
         }
@@ -301,53 +302,80 @@ class MainEventLoop extends JPanel implements ActionListener {
         List<Node> bestTourLocated = new ArrayList<Node>(_currentWorkingTour);
         long bestTourLength = _graph.calculatePathLength(bestTourLocated);
 
+        List<Node> currThreeOptMove = new ArrayList<>(_currentWorkingTour);
+
         // Set up a nested loop to attempt every possible (valid) pair of indices in the list
         for (int firstNode = 1; firstNode < _currentWorkingTour.size() - 3; firstNode++) {
             for (int secondNode = firstNode + 2; secondNode < _currentWorkingTour.size() - 2; secondNode++) {
                 for (int thirdNode = secondNode + 2; thirdNode < _currentWorkingTour.size(); thirdNode++) {
 
-                    List<Node>[] currThreeOptMoves = new List[7];
-                    currThreeOptMoves[0] = new ArrayList<>(_currentWorkingTour);
-                    currThreeOptMoves[1] = new ArrayList<>(_currentWorkingTour);
-                    currThreeOptMoves[2] = new ArrayList<>(_currentWorkingTour);
-                    currThreeOptMoves[3] = new ArrayList<>(_currentWorkingTour);
-                    currThreeOptMoves[4] = new ArrayList<>(_currentWorkingTour);
-                    currThreeOptMoves[5] = new ArrayList<>(_currentWorkingTour);
-                    currThreeOptMoves[6] = new ArrayList<>(_currentWorkingTour);
+                    // Generate all 3-opt permutations and compare to best
+                    for (int i = 0; i < 7; i++) {
 
-                    // Case1
-                    Collections.reverse(currThreeOptMoves[0].subList(firstNode, secondNode));
+                        switch (i) {
+                            case 0:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, secondNode));
+                                break;
+                            case 1:
+                                Collections.reverse(currThreeOptMove.subList(secondNode, thirdNode));
+                                break;
+                            case 2:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, secondNode));
+                                Collections.reverse(currThreeOptMove.subList(secondNode, thirdNode));
+                                break;
+                            case 3:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, thirdNode));
+                                break;
+                            case 4:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, thirdNode));
+                                Collections.reverse(currThreeOptMove.subList(firstNode, secondNode));
+                                break;
+                            case 5:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, thirdNode));
+                                Collections.reverse(currThreeOptMove.subList(secondNode, thirdNode));
+                                break;
+                            case 6:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, thirdNode));
+                                Collections.reverse(currThreeOptMove.subList(firstNode, secondNode));
+                                Collections.reverse(currThreeOptMove.subList(secondNode, thirdNode));
+                                break;
+                        }
 
-                    // Case2
-                    Collections.reverse(currThreeOptMoves[1].subList(secondNode, thirdNode));
-
-                    // Case3
-                    Collections.reverse(currThreeOptMoves[2].subList(firstNode, secondNode));
-                    Collections.reverse(currThreeOptMoves[2].subList(secondNode, thirdNode));
-
-                    // Case4
-                    Collections.reverse(currThreeOptMoves[3].subList(firstNode, thirdNode));
-
-                    // Case5
-                    Collections.reverse(currThreeOptMoves[4].subList(firstNode, thirdNode));
-                    Collections.reverse(currThreeOptMoves[4].subList(firstNode, secondNode));
-
-                    // Case6
-                    Collections.reverse(currThreeOptMoves[5].subList(firstNode, thirdNode));
-                    Collections.reverse(currThreeOptMoves[5].subList(secondNode, thirdNode));
-
-                    // Case7
-                    Collections.reverse(currThreeOptMoves[6].subList(firstNode, thirdNode));
-                    Collections.reverse(currThreeOptMoves[6].subList(firstNode, secondNode));
-                    Collections.reverse(currThreeOptMoves[6].subList(secondNode, thirdNode));
-
-                    for (int i = 0; i < currThreeOptMoves.length; i++) {
-                        List<Node> currThreeOptMove = currThreeOptMoves[i];
                         long currTourLength = _graph.calculatePathLength(currThreeOptMove);
                         if (currTourLength < bestTourLength) {
-                            bestTourLocated = currThreeOptMove;
+                            bestTourLocated = new ArrayList<>(currThreeOptMove);
                             bestTourLength = currTourLength;
                         }
+
+                        switch (i) {
+                            case 0:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, secondNode));
+                                break;
+                            case 1:
+                                Collections.reverse(currThreeOptMove.subList(secondNode, thirdNode));
+                                break;
+                            case 2:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, secondNode));
+                                Collections.reverse(currThreeOptMove.subList(secondNode, thirdNode));
+                                break;
+                            case 3:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, thirdNode));
+                                break;
+                            case 4:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, secondNode));
+                                Collections.reverse(currThreeOptMove.subList(firstNode, thirdNode));
+                                break;
+                            case 5:
+                                Collections.reverse(currThreeOptMove.subList(secondNode, thirdNode));
+                                Collections.reverse(currThreeOptMove.subList(firstNode, thirdNode));
+                                break;
+                            case 6:
+                                Collections.reverse(currThreeOptMove.subList(firstNode, secondNode));
+                                Collections.reverse(currThreeOptMove.subList(secondNode, thirdNode));
+                                Collections.reverse(currThreeOptMove.subList(firstNode, thirdNode));
+                                break;
+                        }
+
                     }
 
                 }

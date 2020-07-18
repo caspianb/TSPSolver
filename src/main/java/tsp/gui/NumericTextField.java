@@ -6,12 +6,12 @@ Publisher: Prentice Hall
 */
 package tsp.gui;
 
-import java.awt.Toolkit;
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
 
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

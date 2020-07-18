@@ -35,7 +35,7 @@ public class Graph {
      * Create a new node and add it to the graph. This method will also
      * automatically create edges linking the new node to all existing nodes.
      * Returns the newly created node.
-     * 
+     *
      * @param xPos
      * @param yPos
      */
@@ -89,7 +89,7 @@ public class Graph {
 
     /**
      * Finds the best Greedy path inside the current graph and caches it
-     * 
+     *
      * @return
      */
     private List<Node> calculateGreedyPath(int startNodeIndex) {
